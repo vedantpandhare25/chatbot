@@ -28,9 +28,12 @@
       };
 
       fetch("https://script.google.com/macros/s/AKfycbyrdQ7kktJZ7iB2I2nbS0uEsz1vMqiExFG88sKr50GopS8OrkJJ9K9XPere0p5NEspUXQ/exec", {
-        method: "POST",
-        body: JSON.stringify(data)
-      })
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(data)
+})
       .then(response => response.json())
       .then(result => {
         if (result.status === "FULL") {
@@ -45,5 +48,4 @@
     });
   </script>
 </body>
-
 </html>
