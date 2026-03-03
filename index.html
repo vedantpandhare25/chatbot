@@ -27,7 +27,26 @@
         time: document.getElementById("time").value
       };
 
-      fetch("https://script.google.com/macros/s/AKfycbyTPEuj4hR2Pix0ZjtOcsul2x7vixJZW7Bwdqsw3JEDeHrR0RRsuxlDeWpKOIpJGRI4Rg/exec", {
+     const url = "https://script.google.com/macros/s/AKfycbyTPEuj4hR2Pix0ZjtOcsul2x7vixJZW7Bwdqsw3JEDeHrR0RRsuxlDeWpKOIpJGRI4Rg/exec" +
+  "?name=" + encodeURIComponent(data.name) +
+  "&phone=" + encodeURIComponent(data.phone) +
+  "&date=" + encodeURIComponent(data.date) +
+  "&time=" + encodeURIComponent(data.time);
+
+fetch(url)
+  .then(response => response.json())
+  .then(result => {
+    if (result.status === "FULL") {
+      document.getElementById("result").innerText = "Slot is Full!";
+    } else if (result.status === "CONFIRMED") {
+      document.getElementById("result").innerText = "Appointment Confirmed!";
+    } else {
+      document.getElementById("result").innerText = "Error occurred.";
+    }
+  })
+  .catch(error => {
+    document.getElementById("result").innerText = "Error occurred.";
+  });
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -50,3 +69,4 @@
 </body>
 
 </html>
+
